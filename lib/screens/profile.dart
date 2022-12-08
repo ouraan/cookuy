@@ -2,6 +2,7 @@ import 'package:cookuy/constants.dart';
 import 'package:cookuy/models/users.dart';
 import 'package:cookuy/screens/change_profile.dart';
 import 'package:cookuy/screens/login.dart';
+import 'package:cookuy/screens/my_recipe.dart';
 import 'package:cookuy/services/services.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,7 @@ class _ProfileState extends State<Profile> {
         ),
         centerTitle: true,
       ),
-      body: FutureBuilder(
+      body: FutureBuilder<List<User>>(
         future: Service.fetchUserBasedId(widget.user.id.toString()),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -67,8 +68,13 @@ class _ProfileState extends State<Profile> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ChangeProfile(
-                                      user: User(id: int.parse(
-                                              "${snapshot.data?[0].id}"), name: "${snapshot.data?[0].name}", email: "${snapshot.data?[0].email}", password: "${snapshot.data?[0].password}"),
+                                      user: User(
+                                          id: int.parse(
+                                              "${snapshot.data?[0].id}"),
+                                          name: "${snapshot.data?[0].name}",
+                                          email: "${snapshot.data?[0].email}",
+                                          password:
+                                              "${snapshot.data?[0].password}"),
                                     )));
                       },
                       child: Container(
@@ -85,6 +91,51 @@ class _ProfileState extends State<Profile> {
                             children: [
                               Text(
                                 "Profile settings",
+                                style: TextStyle(
+                                    fontFamily: 'OpenSans-Regular',
+                                    color: lightGrey,
+                                    fontSize: 15),
+                              ),
+                              Icon(
+                                Icons.keyboard_arrow_right,
+                                color: lightGrey,
+                                size: 28,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyRecipe(
+                                      user: User(
+                                          id: int.parse(
+                                              "${snapshot.data?[0].id}"),
+                                          name: "${snapshot.data?[0].name}",
+                                          email: "${snapshot.data?[0].email}",
+                                          password:
+                                              "${snapshot.data?[0].password}"),
+                                    )));
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 53,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: extraLightGrey,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "My Recipe",
                                 style: TextStyle(
                                     fontFamily: 'OpenSans-Regular',
                                     color: lightGrey,

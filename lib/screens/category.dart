@@ -67,6 +67,8 @@ class _CategoryState extends State<Category> {
                                               "${snapshot.data?[index].id}"),
                                           title:
                                               "${snapshot.data?[index].title}",
+                                          description:
+                                              "${snapshot.data?[index].description}",
                                           creator:
                                               "${snapshot.data?[index].creator}",
                                           thumb:

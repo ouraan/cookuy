@@ -29,7 +29,7 @@ class _DetailState extends State<Detail> {
             "title": title,
             "creator": creator,
             "thumb": thumb,
-            "category": category,
+            "category": category, 
             "times": times,
             "serving": serving,
             "ingredients": ingredients,

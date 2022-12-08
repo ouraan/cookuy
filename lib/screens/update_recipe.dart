@@ -1,19 +1,18 @@
 import 'package:cookuy/constants.dart';
-import 'package:cookuy/models/users.dart';
+import 'package:cookuy/models/recipes.dart';
+import 'package:cookuy/services/services.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-class AddRecipe extends StatefulWidget {
-  final User user;
-  const AddRecipe({super.key, required this.user});
+class UpdateRecipe extends StatefulWidget {
+  final Recipe recipe;
+  const UpdateRecipe({super.key, required this.recipe});
 
   @override
-  State<AddRecipe> createState() => _AddRecipeState();
+  State<UpdateRecipe> createState() => _UpdateRecipeState();
 }
 
-class _AddRecipeState extends State<AddRecipe> {
-  String? selectedValue;
-
+class _UpdateRecipeState extends State<UpdateRecipe> {
   TextEditingController controllerTitle = TextEditingController();
   TextEditingController controllerDesc = TextEditingController();
   TextEditingController controllerCreator = TextEditingController();
@@ -26,28 +25,38 @@ class _AddRecipeState extends State<AddRecipe> {
 
   @override
   void initState() {
-    controllerCreator.text = widget.user.name;
+    controllerTitle.text = widget.recipe.title;
+    controllerDesc.text = widget.recipe.description;
+    controllerCreator.text = widget.recipe.creator;
+    controllerCover.text = widget.recipe.thumb;
+    controllerCat.text = widget.recipe.category;
+    controllerIngredients.text = widget.recipe.ingredients;
+    controllerDirection.text = widget.recipe.direction;
+    controllerTimes.text = widget.recipe.times;
+    controllerServing.text = widget.recipe.serving;
     super.initState();
   }
 
-  void add(String title, description, creator, thumb, times, serving,
+  void update(String id, title, description, creator, thumb, times, serving,
       ingredients, direction, category, bool isSaved) async {
     try {
-      var response =
-          await Dio().post('http://192.168.100.145:3000/recipes', data: {
-        "title": title,
-        "description": description,
-        "creator": creator,
-        "thumb": thumb,
-        "times": times,
-        "serving": serving,
-        "ingredients": ingredients,
-        "direction": direction,
-        "isSaved": isSaved,
-        "category": category,
-      });
+      var response = await Dio().put(
+          'http://192.168.100.145:3000/recipes/' +
+              widget.recipe.id.toString(),
+          data: {
+            "title": title,
+            "description": description,
+            "creator": creator,
+            "thumb": thumb,
+            "times": times,
+            "serving": serving,
+            "ingredients": ingredients,
+            "direction": direction,
+            "category": category,
+            "isSaved": isSaved
+          });
       if (response.data.length > 0) {
-        print("Recipe added successfully");
+        print("Recipe changed successfully");
         Navigator.pop(context);
       } else {
         print("Failed");
@@ -65,7 +74,7 @@ class _AddRecipeState extends State<AddRecipe> {
         elevation: 0,
         backgroundColor: white,
         title: Text(
-          "Add",
+          "Update",
           style: TextStyle(
               fontFamily: 'OpenSans-Bold', color: semiBlack, fontSize: 18),
         ),
@@ -91,7 +100,7 @@ class _AddRecipeState extends State<AddRecipe> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Add Recipe",
+                "Update Recipe",
                 style: TextStyle(
                     fontFamily: 'OpenSans-Bold',
                     color: semiBlack,
@@ -99,10 +108,10 @@ class _AddRecipeState extends State<AddRecipe> {
               ),
               SizedBox(height: 10),
               Text(
-                "Create your own recipe",
+                "Make your recipe updated",
                 style: TextStyle(
                     fontFamily: 'OpenSans-Regular',
-                    color: darkGrey,
+                    color: lightGrey,
                     fontSize: 16),
               ),
               SizedBox(height: 30),
@@ -373,35 +382,35 @@ class _AddRecipeState extends State<AddRecipe> {
               ),
               SizedBox(height: 30),
               ElevatedButton(
-                onPressed: () {
-                  add(
-                      controllerTitle.text,
-                      controllerDesc.text,
-                      controllerCreator.text,
-                      controllerCover.text,
-                      controllerTimes.text,
-                      controllerServing.text,
-                      controllerIngredients.text,
-                      controllerDirection.text,
-                      controllerCat.text,
-                      false,
-                  );
-                },
-                child: Text(
-                  "Add",
-                  style: TextStyle(
-                      fontFamily: 'OpenSans-SemiBold',
-                      color: white,
-                      fontSize: 15),
-                ),
-                style: ElevatedButton.styleFrom(
-                    primary: lightGreen,
-                    elevation: 0,
-                    minimumSize: const Size.fromHeight(53),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    )),
-              )
+                  onPressed: () {
+                    update(
+                        widget.recipe.id.toString(),
+                        controllerTitle.text,
+                        controllerDesc.text,
+                        controllerCreator.text,
+                        controllerCover.text,
+                        controllerTimes.text,
+                        controllerServing.text,
+                        controllerIngredients.text,
+                        controllerDirection.text,
+                        controllerCat.text,
+                        widget.recipe.isSaved
+                        );
+                  },
+                  child: Text(
+                    "Update",
+                    style: TextStyle(
+                        fontFamily: 'OpenSans-SemiBold',
+                        color: white,
+                        fontSize: 15),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      primary: lightGreen,
+                      elevation: 0,
+                      minimumSize: const Size.fromHeight(53),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      )))
             ],
           ),
         ),

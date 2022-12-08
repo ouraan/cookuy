@@ -2,6 +2,7 @@ class Recipe {
   final int id;
   final String title,
       creator,
+      description,
       thumb,
       category,
       times,
@@ -13,6 +14,7 @@ class Recipe {
   Recipe({
     required this.id,
     required this.title,
+    required this.description,
     required this.creator,
     required this.thumb,
     required this.category,
@@ -27,6 +29,7 @@ class Recipe {
     return Recipe(
       id: parsedJson['id'],
       title: parsedJson['title'],
+      description: parsedJson['description'],
       creator: parsedJson['creator'],
       thumb: parsedJson['thumb'],
       category: parsedJson['category'],

@@ -52,8 +52,12 @@ class _BodyHomeState extends State<BodyHome> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => AddRecipe(user: widget.user,)));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AddRecipe(
+                                    user: widget.user,
+                                  )));
                     },
                     child: RecipeCat(
                         imgUrl: "assets/images/plus.png",
@@ -135,6 +139,8 @@ class _BodyHomeState extends State<BodyHome> {
                                                     "${snapshot.data?[index].title}",
                                                 creator:
                                                     "${snapshot.data?[index].creator}",
+                                                description:
+                                                    "${snapshot.data?[index].description}",
                                                 thumb:
                                                     "${snapshot.data?[index].thumb}",
                                                 category:
@@ -170,6 +176,7 @@ class _BodyHomeState extends State<BodyHome> {
                 color: semiBlack,
               ),
             ),
+            SizedBox(height: 20),
             FutureBuilder<List<Recipe>>(
                 future: Service.fetchRecipes(),
                 builder: (context, snapshot) {
@@ -197,6 +204,8 @@ class _BodyHomeState extends State<BodyHome> {
                                                   "${snapshot.data?[index].title}",
                                               creator:
                                                   "${snapshot.data?[index].creator}",
+                                              description:
+                                                  "${snapshot.data?[index].description}",
                                               thumb:
                                                   "${snapshot.data?[index].thumb}",
                                               category:

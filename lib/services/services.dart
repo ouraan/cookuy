@@ -33,4 +33,12 @@ class Service {
         (response.data as List).map((v) => Recipe.fromJSON(v)).toList();
     return recipes;
   }
+
+  static Future<List<Recipe>> fetchRecipesBasedCreator(String creator) async {
+    Response response = await Dio()
+        .get("http://192.168.100.145:3000/recipes?creator=" + creator);
+    List<Recipe> recipes =
+        (response.data as List).map((v) => Recipe.fromJSON(v)).toList();
+    return recipes;
+  }
 }

@@ -12,7 +12,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  bool isPasswordVisible = false;
+  bool isPasswordVisible = true;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController controllerName = TextEditingController();
   TextEditingController controllerEmail = TextEditingController();
@@ -154,8 +154,8 @@ class _RegisterState extends State<Register> {
                       onPressed: (() => setState(
                           () => isPasswordVisible = !isPasswordVisible)),
                       icon: isPasswordVisible
-                          ? Icon(Icons.visibility_off)
-                          : Icon(Icons.visibility)),
+                          ? Icon(Icons.visibility)
+                          : Icon(Icons.visibility_off)),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {

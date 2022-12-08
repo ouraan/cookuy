@@ -40,7 +40,7 @@ class Bookmark extends StatelessWidget {
                   ),
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -49,6 +49,8 @@ class Bookmark extends StatelessWidget {
                                         id: int.parse(
                                             "${snapshot.data?[index].id}"),
                                         title: "${snapshot.data?[index].title}",
+                                        description:
+                                            "${snapshot.data?[index].description}",
                                         creator:
                                             "${snapshot.data?[index].creator}",
                                         thumb: "${snapshot.data?[index].thumb}",
