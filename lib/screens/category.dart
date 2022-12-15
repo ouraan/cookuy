@@ -83,7 +83,9 @@ class _CategoryState extends State<Category> {
                                               "${snapshot.data?[index].ingredients}",
                                           direction:
                                               "${snapshot.data?[index].direction}",
-                                              isSaved: snapshot.data?[index].isSaved
+                                          isSaved: snapshot.data?[index].isSaved
+                                              as bool,
+                                          isPopular: snapshot.data?[index].isPopular
                                               as bool))));
                             },
                             child: RecipeCard(

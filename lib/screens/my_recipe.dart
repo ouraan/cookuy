@@ -98,7 +98,9 @@ class _MyRecipeState extends State<MyRecipe> {
                                           direction:
                                               "${snapshot.data?[index].direction}",
                                           isSaved: snapshot.data?[index].isSaved
-                                              as bool))));
+                                              as bool,
+                                          isPopular: snapshot.data?[index]
+                                              .isPopular as bool))));
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(bottom: 20),
@@ -179,8 +181,11 @@ class _MyRecipeState extends State<MyRecipe> {
                                                           direction:
                                                               "${snapshot.data?[index].direction}",
                                                           isSaved: snapshot
+                                                              .data?[index]
+                                                              .isSaved as bool,
+                                                          isPopular: snapshot
                                                                   .data?[index]
-                                                                  .isSaved
+                                                                  .isPopular
                                                               as bool))));
                                         },
                                         child: Icon(
@@ -191,8 +196,10 @@ class _MyRecipeState extends State<MyRecipe> {
                                       SizedBox(width: 6),
                                       GestureDetector(
                                           onTap: () {
-                                            delete(
-                                                "${snapshot.data?[index].id}");
+                                            setState(() {
+                                              delete(
+                                                  "${snapshot.data?[index].id}");
+                                            });
                                           },
                                           child: Icon(Icons.delete,
                                               color: lightGreen))

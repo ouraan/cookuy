@@ -27,8 +27,16 @@ class Service {
   }
 
   static Future<List<Recipe>> fetchRecipesBasedBookmark() async {
-    Response response = await Dio()
-        .get("http://192.168.100.145:3000/recipes?isSaved=true");
+    Response response =
+        await Dio().get("http://192.168.100.145:3000/recipes?isSaved=true");
+    List<Recipe> recipes =
+        (response.data as List).map((v) => Recipe.fromJSON(v)).toList();
+    return recipes;
+  }
+
+  static Future<List<Recipe>> fetchRecipesBasedPopular() async {
+    Response response =
+        await Dio().get("http://192.168.100.145:3000/recipes?isPopular=true");
     List<Recipe> recipes =
         (response.data as List).map((v) => Recipe.fromJSON(v)).toList();
     return recipes;

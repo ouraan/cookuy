@@ -41,8 +41,7 @@ class _UpdateRecipeState extends State<UpdateRecipe> {
       ingredients, direction, category, bool isSaved) async {
     try {
       var response = await Dio().put(
-          'http://192.168.100.145:3000/recipes/' +
-              widget.recipe.id.toString(),
+          'http://192.168.100.145:3000/recipes/' + widget.recipe.id.toString(),
           data: {
             "title": title,
             "description": description,
@@ -394,8 +393,7 @@ class _UpdateRecipeState extends State<UpdateRecipe> {
                         controllerIngredients.text,
                         controllerDirection.text,
                         controllerCat.text,
-                        widget.recipe.isSaved
-                        );
+                        widget.recipe.isSaved);
                   },
                   child: Text(
                     "Update",

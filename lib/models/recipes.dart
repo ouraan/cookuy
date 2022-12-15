@@ -9,35 +9,35 @@ class Recipe {
       serving,
       ingredients,
       direction;
-  final bool isSaved;
+  final bool isSaved, isPopular;
 
-  Recipe({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.creator,
-    required this.thumb,
-    required this.category,
-    required this.times,
-    required this.serving,
-    required this.ingredients,
-    required this.direction,
-    required this.isSaved
-  });
+  Recipe(
+      {required this.id,
+      required this.title,
+      required this.description,
+      required this.creator,
+      required this.thumb,
+      required this.category,
+      required this.times,
+      required this.serving,
+      required this.ingredients,
+      required this.direction,
+      required this.isPopular,
+      required this.isSaved});
 
   factory Recipe.fromJSON(Map parsedJson) {
     return Recipe(
-      id: parsedJson['id'],
-      title: parsedJson['title'],
-      description: parsedJson['description'],
-      creator: parsedJson['creator'],
-      thumb: parsedJson['thumb'],
-      category: parsedJson['category'],
-      times: parsedJson['times'],
-      serving: parsedJson['serving'],
-      ingredients: parsedJson['ingredients'],
-      direction: parsedJson['direction'],
-      isSaved: parsedJson['isSaved']
-    );
+        id: parsedJson['id'],
+        title: parsedJson['title'],
+        description: parsedJson['description'],
+        creator: parsedJson['creator'],
+        thumb: parsedJson['thumb'],
+        category: parsedJson['category'],
+        times: parsedJson['times'],
+        serving: parsedJson['serving'],
+        ingredients: parsedJson['ingredients'],
+        direction: parsedJson['direction'],
+        isPopular: parsedJson['isPopular'],
+        isSaved: parsedJson['isSaved']);
   }
 }

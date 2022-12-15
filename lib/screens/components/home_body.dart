@@ -109,10 +109,19 @@ class _BodyHomeState extends State<BodyHome> {
               ),
             ),
             SizedBox(height: 25),
+            Text(
+              "Recommended For You",
+              style: TextStyle(
+                fontFamily: 'OpenSans-SemiBold',
+                fontSize: 16,
+                color: semiBlack,
+              ),
+            ),
+            SizedBox(height: 15),
             SizedBox(
               height: 220,
               child: FutureBuilder<List<Recipe>>(
-                  future: Service.fetchRecipes(),
+                  future: Service.fetchRecipesBasedPopular(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
@@ -124,7 +133,7 @@ class _BodyHomeState extends State<BodyHome> {
                           physics: ClampingScrollPhysics(),
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          itemCount: 3,
+                          itemCount: snapshot.data?.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
@@ -154,7 +163,9 @@ class _BodyHomeState extends State<BodyHome> {
                                                 direction:
                                                     "${snapshot.data?[index].direction}",
                                                 isSaved: snapshot.data?[index]
-                                                    .isSaved as bool))));
+                                                    .isSaved as bool,
+                                                isPopular: snapshot.data?[index]
+                                                    .isPopular as bool))));
                               },
                               child: RecommendCard(
                                   imageUrl: "${snapshot.data?[index].thumb}",
@@ -176,7 +187,6 @@ class _BodyHomeState extends State<BodyHome> {
                 color: semiBlack,
               ),
             ),
-            SizedBox(height: 20),
             FutureBuilder<List<Recipe>>(
                 future: Service.fetchRecipes(),
                 builder: (context, snapshot) {
@@ -218,8 +228,10 @@ class _BodyHomeState extends State<BodyHome> {
                                                   "${snapshot.data?[index].ingredients}",
                                               direction:
                                                   "${snapshot.data?[index].direction}",
-                                              isSaved: snapshot.data?[index]
-                                                  .isSaved as bool))));
+                                              isSaved: snapshot
+                                                  .data?[index].isSaved as bool,
+                                              isPopular: snapshot.data?[index]
+                                                  .isPopular as bool))));
                             },
                             child: RecipeCard(
                                 imageUrl: "${snapshot.data?[index].thumb}",

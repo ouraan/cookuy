@@ -64,6 +64,8 @@ class Bookmark extends StatelessWidget {
                                         direction:
                                             "${snapshot.data?[index].direction}",
                                         isSaved: snapshot.data?[index].isSaved
+                                            as bool,
+                                        isPopular: snapshot.data?[index].isPopular
                                             as bool))));
                       },
                       child: SavedCard(

@@ -12,8 +12,6 @@ class AddRecipe extends StatefulWidget {
 }
 
 class _AddRecipeState extends State<AddRecipe> {
-  String? selectedValue;
-
   TextEditingController controllerTitle = TextEditingController();
   TextEditingController controllerDesc = TextEditingController();
   TextEditingController controllerCreator = TextEditingController();
@@ -36,7 +34,7 @@ class _AddRecipeState extends State<AddRecipe> {
       var response =
           await Dio().post('http://192.168.100.145:3000/recipes', data: {
         "title": title,
-        "description": description,
+        "description": description ?? "-",
         "creator": creator,
         "thumb": thumb,
         "times": times,
@@ -374,7 +372,8 @@ class _AddRecipeState extends State<AddRecipe> {
               SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
-                  add(
+                  setState(() {
+                    add(
                       controllerTitle.text,
                       controllerDesc.text,
                       controllerCreator.text,
@@ -385,7 +384,8 @@ class _AddRecipeState extends State<AddRecipe> {
                       controllerDirection.text,
                       controllerCat.text,
                       false,
-                  );
+                    );
+                  });
                 },
                 child: Text(
                   "Add",
